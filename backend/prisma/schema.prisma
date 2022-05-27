@@ -1,0 +1,83 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id               String       @id @default(cuid())
+  email            String
+  password         String
+  firstName        String
+  lastName         String
+  age              Int
+  location         String
+  registrationDate DateTime     @default(now())
+  disabilities     Disability[]
+
+  interests PointOfInterest[]
+}
+
+model Disability {
+  userId String
+  user   User           @relation(fields: [userId], references: [id])
+  id     String         @id @default(cuid())
+  type   DisabilityType
+}
+
+enum DisabilityType {
+  sensory
+  motor
+  intellectual
+  psychic
+}
+
+enum PointOfInterest {
+  concert
+  exhibition
+  festival
+  memorial
+  historical_renactmen
+  theatrical_play
+  exposition
+  cinema
+}
+
+model Event {
+  id            String           @id @default(cuid())
+  name          String
+  position      String
+  dateStart     DateTime
+  dateEnd       DateTime?
+  url           String?
+  images        String[]
+  description   String
+  accessibility DisabilityType[]
+  price         String
+  type          EventType[]
+
+  organizerId    String
+  eventOrganizer EventOrganizer @relation(fields: [organizerId], references: [id])
+}
+
+model EventOrganizer {
+  id   String  @id @default(cuid())
+  name String
+  url  String?
+
+  organizedEvents Event[]
+}
+
+enum EventType {
+  concert
+  exhibition
+  festival
+  memorial
+  historical_renactmen
+  theatrical_play
+  exposition
+  cinema
+}
