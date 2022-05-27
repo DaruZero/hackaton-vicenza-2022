@@ -11,14 +11,6 @@ phases:
       - BACKEND_IMAGE_NAMETAG=backend
       - BACKEND_ECR_NAMETAG=$FRONTEND_REPOSITORY_URI:$FRONTEND_IMAGE_NAMETAG
 
-      - BACKEND_USERS_URI=495849476805.dkr.ecr.eu-west-1.amazonaws.com/hack-backend-users
-      - BACKEND_USERS_IMAGE_NAMETAG=backend-users
-      - BACKEND_USERS_ECR_NAMETAG=$BACKEND_USERS_REPOSITORY_URI:$BACKEND_USERS_IMAGE_NAMETAG
-
-      - BACKEND_EVENTS_URI=495849476805.dkr.ecr.eu-west-1.amazonaws.com/hack-backend-events
-      - BACKEND_EVENTS_IMAGE_NAMETAG=backend-events
-      - BACKEND_EVENTS_ECR_NAMETAG=$BACKEND_EVENTS_REPOSITORY_URI:$BACKEND_EVENTS_IMAGE_NAMETAG
-
       - FRONTEND_URI=495849476805.dkr.ecr.eu-west-1.amazonaws.com/hack-frontend
       - FRONTEND_IMAGE_NAMETAG=frontend
       - FRONTEND_ECR_NAMETAG=$FRONTEND_REPOSITORY_URI:$FRONTEND_IMAGE_NAMETAG
@@ -32,14 +24,6 @@ phases:
       - docker build . -t $BACKEND_IMAGE_NAMETAG
       - docker tag $BACKEND_IMAGE_NAMETAG $BACKEND_ECR_NAMETAG
 
-      - cd ../backendUsers/
-      - docker build . -t $BACKEND_USERS_IMAGE_NAMETAG
-      - docker tag $BACKEND_USERS_IMAGE_NAMETAG $BACKEND_USERS_ECR_NAMETAG
-
-      - cd ../backendEvents/
-      - docker build . -t $BACKEND_EVENTS_IMAGE_NAMETAG
-      - docker tag $BACKEND_EVENTS_IMAGE_NAMETAG $BACKEND_EVENTS_ECR_NAMETAG
-
       - cd ../frontend/
       - docker build . -t $FRONTEND_IMAGE_NAMETAG
       - docker tag $FRONTEND_IMAGE_NAMETAG $FRONTEND_ECR_NAMETAG
@@ -48,8 +32,6 @@ phases:
       - echo Build completed on $(date +%Y-%m-%d:%T)
       - echo Pushing the Docker images...
       - docker push $FRONTEND_ECR_NAMETAG
-      - docker push $BACKEND_ECR_NAMETAG
-      - docker push $BACKEND_USERS_ECR_NAMETAG
       - docker push $BACKEND_EVENTS_ECR_NAMETAG
 artifacts:
   files:
