@@ -5,22 +5,22 @@ phases:
     commands:
       - echo Logging in to Amazon ECR...
       - aws --version
-      - aws ecr get-login-password --region eu-west-1 | docker login --username AWS --password-stdin 279171875366.dkr.ecr.eu-west-1.amazonaws.com
+      - aws ecr get-login-password --region eu-west-1 | docker login --username AWS --password-stdin 240595528763.dkr.ecr.eu-west-1.amazonaws.com
 
-      - FRONTEND_URI=495849476805.dkr.ecr.eu-west-1.amazonaws.com/FRONTEND
-      - FRONTEND_IMAGE_NAMETAG=FRONTEND
+      - FRONTEND_URI=495849476805.dkr.ecr.eu-west-1.amazonaws.com/hack-frontend
+      - FRONTEND_IMAGE_NAMETAG=frontend
       - FRONTEND_ECR_NAMETAG=$FRONTEND_REPOSITORY_URI:$FRONTEND_IMAGE_NAMETAG
 
-      - BACKEND_URI=495849476805.dkr.ecr.eu-west-1.amazonaws.com/BACKEND
-      - BACKEND_IMAGE_NAMETAG=BACKEND
+      - BACKEND_URI=495849476805.dkr.ecr.eu-west-1.amazonaws.com/hack-backend
+      - BACKEND_IMAGE_NAMETAG=backend
       - BACKEND_ECR_NAMETAG=$FRONTEND_REPOSITORY_URI:$FRONTEND_IMAGE_NAMETAG
 
-      - BACKEND_USERS_URI=495849476805.dkr.ecr.eu-west-1.amazonaws.com/BACKEND_USERS
-      - BACKEND_USERS_IMAGE_NAMETAG=BACKEND_USERS
+      - BACKEND_USERS_URI=495849476805.dkr.ecr.eu-west-1.amazonaws.com/hack-backend-users
+      - BACKEND_USERS_IMAGE_NAMETAG=backend-users
       - BACKEND_USERS_ECR_NAMETAG=$BACKEND_USERS_REPOSITORY_URI:$BACKEND_USERS_IMAGE_NAMETAG
 
-      - BACKEND_EVENTS_URI=495849476805.dkr.ecr.eu-west-1.amazonaws.com/BACKEND_EVENTS
-      - BACKEND_EVENTS_IMAGE_NAMETAG=BACKEND_EVENTS
+      - BACKEND_EVENTS_URI=495849476805.dkr.ecr.eu-west-1.amazonaws.com/hack-backend-events
+      - BACKEND_EVENTS_IMAGE_NAMETAG=backend-events
       - BACKEND_EVENTS_ECR_NAMETAG=$BACKEND_EVENTS_REPOSITORY_URI:$BACKEND_EVENTS_IMAGE_NAMETAG
 
   build:
@@ -50,10 +50,7 @@ phases:
       - docker push $BACKEND_ECR_NAMETAG
       - docker push $BACKEND_USERS_ECR_NAMETAG
       - docker push $BACKEND_EVENTS_ECR_NAMETAG
-      - echo Writing image definitions file...
-      - printf '[{"name":"%s-main","imageUri":"%s"},{"name":"%s-sidekiq","imageUri":"%s"}]' $PYTHON_PROJECT_NAME $PYTHON_ECR_NAMETAG $PYTHON_PROJECT_NAME $PYTHON_ECR_NAMETAG> imagedefinitions.json
 artifacts:
   files:
-    - imagedefinitions.json
     - appspec.yml
     - pipeline_script/**/*
