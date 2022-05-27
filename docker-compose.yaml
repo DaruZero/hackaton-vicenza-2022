@@ -1,5 +1,51 @@
 version: "3.9"
 services:
+  backend:
+    image: "node:alpine"
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./backend:/app
+    working_dir: "/app"
+    entrypoint:
+      - npm
+      - run
+      - dev
+    environment:
+      - PORT=3000
+
+  backendEvents:
+    image: "node:alpine"
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./backendEvents:/app
+    working_dir: "/app"
+    entrypoint:
+      - npm
+      - run
+      - dev
+    depends_on:
+      - databaseEvents
+    environment:
+      - PORT=3001
+
+  backendUsers:
+    image: "node:alpine"
+    ports:
+      - "3002:3002"
+    volumes:
+      - ./backendUsers:/app
+    working_dir: "/app"
+    entrypoint:
+      - npm
+      - run
+      - dev
+    depends_on:
+      - databaseUser
+    environment:
+      - PORT=3002
+
   databaseEvents:
     image: "postgres"
     ports:
