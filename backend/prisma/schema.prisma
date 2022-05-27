@@ -59,7 +59,7 @@ model Event {
   type          EventType[]
 
   organizerId    String
-  eventOrganizer EventOrganizer @relation(fields: [organizerId], references: [id])
+  eventOrganizer EventOrganizer @relation(fields: [organizerId], references: [id], onDelete: Cascade)
 
   userLikeEvent UserLikeEvent[]
 }
