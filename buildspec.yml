@@ -7,10 +7,6 @@ phases:
       - aws --version
       - aws ecr get-login-password --region eu-west-1 | docker login --username AWS --password-stdin 240595528763.dkr.ecr.eu-west-1.amazonaws.com
 
-      - FRONTEND_URI=495849476805.dkr.ecr.eu-west-1.amazonaws.com/hack-frontend
-      - FRONTEND_IMAGE_NAMETAG=frontend
-      - FRONTEND_ECR_NAMETAG=$FRONTEND_REPOSITORY_URI:$FRONTEND_IMAGE_NAMETAG
-
       - BACKEND_URI=495849476805.dkr.ecr.eu-west-1.amazonaws.com/hack-backend
       - BACKEND_IMAGE_NAMETAG=backend
       - BACKEND_ECR_NAMETAG=$FRONTEND_REPOSITORY_URI:$FRONTEND_IMAGE_NAMETAG
@@ -23,13 +19,14 @@ phases:
       - BACKEND_EVENTS_IMAGE_NAMETAG=backend-events
       - BACKEND_EVENTS_ECR_NAMETAG=$BACKEND_EVENTS_REPOSITORY_URI:$BACKEND_EVENTS_IMAGE_NAMETAG
 
+      - FRONTEND_URI=495849476805.dkr.ecr.eu-west-1.amazonaws.com/hack-frontend
+      - FRONTEND_IMAGE_NAMETAG=frontend
+      - FRONTEND_ECR_NAMETAG=$FRONTEND_REPOSITORY_URI:$FRONTEND_IMAGE_NAMETAG
+
   build:
     commands:
       - echo Build started on $(date +%Y-%m-%d:%T)
       - echo Building the Docker image...
-      - cd ./frontend/
-      - docker build . -t $FRONTEND_IMAGE_NAMETAG
-      - docker tag $FRONTEND_IMAGE_NAMETAG $FRONTEND_ECR_NAMETAG
 
       - cd ../backend/
       - docker build . -t $BACKEND_IMAGE_NAMETAG
@@ -42,6 +39,10 @@ phases:
       - cd ../backendEvents/
       - docker build . -t $BACKEND_EVENTS_IMAGE_NAMETAG
       - docker tag $BACKEND_EVENTS_IMAGE_NAMETAG $BACKEND_EVENTS_ECR_NAMETAG
+
+      - cd ./frontend/
+      - docker build . -t $FRONTEND_IMAGE_NAMETAG
+      - docker tag $FRONTEND_IMAGE_NAMETAG $FRONTEND_ECR_NAMETAG
   post_build:
     commands:
       - echo Build completed on $(date +%Y-%m-%d:%T)
