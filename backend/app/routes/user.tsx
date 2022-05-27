@@ -10,20 +10,20 @@ import {
 export const action: ActionFunction = async ({ request }) => {
   switch (request.method) {
     case "GET": {
-      const body = await request.json();
-      return findUser((body as any).id);
+      const body = (await request.json()) as User;
+      return findUser(body.id);
     }
     case "POST": {
-      const body = await request.json();
-      return insertUser(body as User);
+      const body = (await request.json()) as User;
+      return insertUser(body);
     }
     case "PUT": {
-      const body = await request.json();
-      return updateUser((body as any).id, body as User);
+      const body = (await request.json()) as User;
+      return updateUser(body.id, body);
     }
     case "DELETE": {
-      const body = await request.json();
-      return deleteUser((body as any).id);
+      const body = (await request.json()) as User;
+      return deleteUser(body.id);
     }
     default: {
       return new Response(null, {
