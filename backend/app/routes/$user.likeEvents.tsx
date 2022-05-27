@@ -19,8 +19,8 @@ export const action: ActionFunction = async ({ request }) => {
       return insertUserLikeEvent(body.userId, body.eventId);
     }
     case "DELETE": {
-      const body = (await request.json()) as { eventId: string };
-      return deleteUserLikeEvent(body.eventId);
+      const body = (await request.json()) as { id: string };
+      return deleteUserLikeEvent(body.id);
     }
   }
 };

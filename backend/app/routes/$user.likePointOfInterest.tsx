@@ -8,8 +8,8 @@ import {
 export const action: ActionFunction = async ({ request }) => {
   switch (request.method) {
     case "GET": {
-      const body = (await request.json()) as { userId: string };
-      return findUserLikePointOfInterest(body.userId);
+      const body = (await request.json()) as { id: string };
+      return findUserLikePointOfInterest(body.id);
     }
     case "POST": {
       const body = (await request.json()) as {
@@ -19,8 +19,8 @@ export const action: ActionFunction = async ({ request }) => {
       return insertUserLikePointOfInterest(body.userId, body.pointOfInterestId);
     }
     case "DELETE": {
-      const body = (await request.json()) as { pointOfInterestId: string };
-      return deleteUserLikePointOfInterest(body.pointOfInterestId);
+      const body = (await request.json()) as { id: string };
+      return deleteUserLikePointOfInterest(body.id);
     }
   }
 };
