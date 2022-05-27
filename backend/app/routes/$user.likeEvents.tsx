@@ -8,8 +8,8 @@ import {
 export const action: ActionFunction = async ({ request }) => {
   switch (request.method) {
     case "GET": {
-      const body = (await request.json()) as { userId: string };
-      return findUserLikeEvent(body.userId);
+      const body = (await request.json()) as { id: string };
+      return findUserLikeEvent(body.id);
     }
     case "POST": {
       const body = (await request.json()) as {
