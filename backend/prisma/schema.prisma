@@ -7,68 +7,30 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id               String       @id @default(cuid())
-  email            String
-  password         String
-  firstName        String
-  lastName         String
-  age              Int
-  location         String
-  registrationDate DateTime     @default(now())
-  disabilities     Disability[]
-
-  interests PointOfInterest[]
-}
-
-model Disability {
-  userId String
-  user   User           @relation(fields: [userId], references: [id])
-  id     String         @id @default(cuid())
-  type   DisabilityType
-}
-
-enum DisabilityType {
+enum Disability {
   sensory
   motor
   intellectual
   psychic
 }
 
-enum PointOfInterest {
-  concert
-  exhibition
-  festival
-  memorial
-  historical_renactmen
-  theatrical_play
-  exposition
-  cinema
-}
+model User {
+  id               String   @id @default(cuid())
+  email            String   @unique
+  password         String
+  firstName        String
+  lastName         String
+  age              Int
+  location         String
+  registrationDate DateTime @default(now())
 
-model Event {
-  id            String           @id @default(cuid())
-  name          String
-  position      String
-  dateStart     DateTime
-  dateEnd       DateTime?
-  url           String?
-  images        String[]
-  description   String
-  accessibility DisabilityType[]
-  price         String
-  type          EventType[]
+  disabilities Disability[]
 
-  organizerId    String
-  eventOrganizer EventOrganizer @relation(fields: [organizerId], references: [id])
-}
+  eventPreferences     EventType[]
+  interestsPreferences PointOfInterestType[]
 
-model EventOrganizer {
-  id   String  @id @default(cuid())
-  name String
-  url  String?
-
-  organizedEvents Event[]
+  eventLikes              UserLikeEvent[]
+  userLikePointOfInterest UserLikePointOfInterest[]
 }
 
 enum EventType {
@@ -80,4 +42,72 @@ enum EventType {
   theatrical_play
   exposition
   cinema
+}
+
+model Event {
+  id          String    @id @default(cuid())
+  name        String
+  location    String
+  dateStart   DateTime
+  dateEnd     DateTime?
+  url         String?
+  images      String[]
+  description String
+  price       String
+
+  accessibility Disability[]
+  type          EventType[]
+
+  organizerId    String
+  eventOrganizer EventOrganizer @relation(fields: [organizerId], references: [id])
+
+  userLikeEvent UserLikeEvent[]
+}
+
+model EventOrganizer {
+  id               String   @id @default(cuid())
+  name             String
+  email            String   @unique
+  password         String
+  description      String
+  piva             String
+  registrationDate DateTime @default(now())
+  url              String?
+
+  organizedEvents Event[]
+}
+
+model UserLikeEvent {
+  id      String @id @default(cuid())
+  userId  String
+  user    User   @relation(fields: [userId], references: [id])
+  eventId String
+  event   Event  @relation(fields: [eventId], references: [id])
+
+  @@unique([userId, eventId])
+}
+
+model UserLikePointOfInterest {
+  id                String          @id @default(cuid())
+  userId            String
+  user              User            @relation(fields: [userId], references: [id])
+  pointOfInterestId String
+  pointOfInterest   PointOfInterest @relation(fields: [pointOfInterestId], references: [id])
+}
+
+enum PointOfInterestType {
+  park
+  building
+  manor
+  fountain
+  plaza
+}
+
+model PointOfInterest {
+  id                      String                    @id @default(cuid())
+  name                    String
+  location                String
+  description             String
+  userLikePointOfInterest UserLikePointOfInterest[]
+  type                    PointOfInterestType
 }
