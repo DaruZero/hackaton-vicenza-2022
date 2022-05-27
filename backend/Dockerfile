@@ -1,11 +1,12 @@
+
 # syntax=docker/dockerfile:1
 
 FROM node
 
 COPY . .
 
-EXPOSE 3002
+EXPOSE 3000
 
 RUN npm install && npm run build
 
-CMD [ "PORT=3002 npm run start" ]
+CMD [ "PORT=3000 npm run start" ]
