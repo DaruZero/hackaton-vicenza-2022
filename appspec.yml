@@ -1,0 +1,10 @@
+version: 0.0
+os: linux
+files:
+  - source: pipeline_script/
+    destination: /home/ec2-user
+file_exists_behavior: OVERWRITE
+hooks:
+  ApplicationStart:
+    - location: pipeline_script/ApplicationStart.sh
+      runas: ec2-user
