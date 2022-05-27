@@ -19,10 +19,10 @@ docker rm $FRONTEND
 docker rm $BACKEND
 
 docker image prune -f
-aws ecr get-login-password --region eu-west-1 | docker login --username AWS --password-stdin 495849476805.dkr.ecr.eu-west-1.amazonaws.com
+aws ecr get-login-password --region eu-west-1 | docker login --username AWS --password-stdin 240595528763.dkr.ecr.eu-west-1.amazonaws.com
 
-docker pull 495849476805.dkr.ecr.eu-west-1.amazonaws.com/$FRONTEND_URI:$FRONTEND
-docker pull 495849476805.dkr.ecr.eu-west-1.amazonaws.com/$BACKEND_URI:$BACKEND
+docker pull 240595528763.dkr.ecr.eu-west-1.amazonaws.com/$FRONTEND_URI:$FRONTEND
+docker pull 240595528763.dkr.ecr.eu-west-1.amazonaws.com/$BACKEND_URI:$BACKEND
 
-docker run --name $FRONTEND -d --network hack -e SERVER_NAME=$FRONTEND 495849476805.dkr.ecr.eu-west-1.amazonaws.com/$FRONTEND_URI:$FRONTEND
-docker run --name $BACKEND -d --network hack -e SERVER_NAME=$BACKEND 495849476805.dkr.ecr.eu-west-1.amazonaws.com/$BACKEND_URI:$BACKEND
+docker run --name $FRONTEND -d --network hack -e SERVER_NAME=$FRONTEND 240595528763.dkr.ecr.eu-west-1.amazonaws.com/$FRONTEND_URI:$FRONTEND
+docker run --name $BACKEND -d --network hack -e SERVER_NAME=$BACKEND 240595528763.dkr.ecr.eu-west-1.amazonaws.com/$BACKEND_URI:$BACKEND

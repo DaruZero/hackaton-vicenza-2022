@@ -7,11 +7,11 @@ phases:
       - aws --version
       - aws ecr get-login-password --region eu-west-1 | docker login --username AWS --password-stdin 240595528763.dkr.ecr.eu-west-1.amazonaws.com
 
-      - BACKEND_URI=495849476805.dkr.ecr.eu-west-1.amazonaws.com/hack-backend
+      - BACKEND_URI=240595528763.dkr.ecr.eu-west-1.amazonaws.com/hack-backend
       - BACKEND_IMAGE_NAMETAG=backend
       - BACKEND_ECR_NAMETAG=$FRONTEND_REPOSITORY_URI:$FRONTEND_IMAGE_NAMETAG
 
-      - FRONTEND_URI=495849476805.dkr.ecr.eu-west-1.amazonaws.com/hack-frontend
+      - FRONTEND_URI=240595528763.dkr.ecr.eu-west-1.amazonaws.com/hack-frontend
       - FRONTEND_IMAGE_NAMETAG=frontend
       - FRONTEND_ECR_NAMETAG=$FRONTEND_REPOSITORY_URI:$FRONTEND_IMAGE_NAMETAG
 
