@@ -1,0 +1,27 @@
+version: "3.9"
+services:
+  databaseEvents:
+    image: "postgres"
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgresEvents:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_USERS_DB}
+
+  databaseUser:
+    image: "postgres"
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgresUser:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_EVENTS_DB}
+
+volumes:
+  postgresUser:
+  postgresEvents:
