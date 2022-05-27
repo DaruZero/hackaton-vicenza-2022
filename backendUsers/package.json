@@ -4,8 +4,7 @@
   "sideEffects": false,
   "scripts": {
     "build": "remix build",
-    "dev": "concurrently -p \"[{name}]\" -n \"docker,remix\" -c \"blue.bold,red.bold\" \"npm:dev:docker\" \"npm:dev:remix\"",
-    "dev:remix": "remix dev",
+    "dev": "remix dev",
     "dev:docker": "docker compose up -d",
     "start": "remix-serve build",
     "db:push": "prisma db push",
