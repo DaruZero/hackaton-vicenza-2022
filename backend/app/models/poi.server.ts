@@ -31,7 +31,7 @@ export const updatePointOfInterest = async (
   });
 };
 
-export const insertPointOfInterst = async (
+export const insertPointOfInterest = async (
   pointOfInterest: Omit<PointOfInterest, "id">
 ) => {
   return prisma.pointOfInterest.create({
