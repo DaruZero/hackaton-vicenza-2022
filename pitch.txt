@@ -1,0 +1,15 @@
+Noi siamo Egeria, e prendiamo il nome da una delle ninfee della mitologia romana, che nella lingua italiana è rimasto con il significato di ispiratrice e consigliera.
+E proprio questo fa l'applicazione che abbiamo ideato: ispirare e consigliare.
+Vi siete mai trovati in difficoltà nel cercare qualche luogo o evento di interesse culturale? Ci sono tanti servizi disponibili, ma nessuno cucito su misura per coloro che vogliono immergersi nelle arti. Con Just Visit! scopriremo un nuovo modo di esplorare il territorio.
+Un utente ha la possibilità di registrarsi e customizzare il proprio profilo in base alle sue preferenze e caratteristiche. Questa profilazione, assieme alla geolocalizzazione, garantisce un'esperienza di ricerca di eventi culturali e punti di interesse più stimolante per il visitatore.
+Ma questo non è tutto. Anche agli organizzatori sarà più semplice pubblicizzare il proprio evento. Potranno inserire tutte le informazioni necessarie così da rendere più semplice ed immediata la ricerca per gli utenti e promuovere sui social i propri eventi. Agli utenti non verranno presentate solo cose nelle relative vicinanze, ma anche in tutte le zone limitrofe. Ad esempio se mi trovo a Treviso, ma a Vicenza c'è una bella visita guidata alla Villa Cordellina, mi arriverà una notifica siccome l'architettura del 1700 rientra fra i miei interessi.
+Un altro aspetto importante è quello delle notifiche push. Quando un evento subisce modifiche, dallo spostamento di data alla cancellazione, l'utente che ha mostrato interesse verso di esso o ha acquistato il biglietto, verrà prontamente notificato.
+Passiamo ora alla parte più tecnica presentando lo stack tecnologico che abbiamo utilizzato.
+
+Le fondamenta del nostro backend sono scritte in TypeScript utilizzando il framework Remix. Questo perché è molto semplice creare le route per le API e gestire le richieste bastano una manciata di righe di codice. Avremmo potuto scrivere anche tutto il frontend utilizzando Remix, siccome sotto utilizza React e tutta la potenza dei suoi componenti. Abbiamo invece deciso di utilizzare Flutter per poterlo rendere mobile.
+Poiché i dati gestiti dall'applicazione sono tutti strutturati, la scelta del database è ricaduta su Postgres vista la sua leggerezza e responsività. Per gestire lo schema e le query ci siamo affidati a Prisma, un ORM che si integra molto bene con JS/TS.
+Infine abbiamo gestito il deployment in production con AWS, conteinerizzando i nostri servizi con docker.
+Di seguito alcuni esempi. Partendo dall'algoritmo, si può vedere la distribuzione delle fascie d'età per i diversi tipi di evento.
+Qui poi abbiamo gli schemi del database, in cui si possono vedere i modelli per gli utenti, gli organizzatori, gli eventi e i punti di interesse. Sono piuttosto semplici, ma con una ricerca approfondita e soprattutto l'utilizzo estensivo dell'applicazione sicuramente possono diventare più complessi, pur mantenendo una struttura simile
+
+In futuro, avendo distribuito l'applicazione con AWS, sarà molto semplice, e soprattutto sicuro poterla scalare in base alle necessità.
